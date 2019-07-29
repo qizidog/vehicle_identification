@@ -1,0 +1,862 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1538</width>
+    <height>671</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>MainWindow</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <layout class="QGridLayout" name="gridLayout">
+    <item row="0" column="0">
+     <layout class="QVBoxLayout" name="verticalLayout_2">
+      <item>
+       <layout class="QHBoxLayout" name="horizontalLayout_2">
+        <item>
+         <layout class="QVBoxLayout" name="verticalLayout">
+          <item>
+           <widget class="QLabel" name="label_frameBox">
+            <property name="minimumSize">
+             <size>
+              <width>1021</width>
+              <height>205</height>
+             </size>
+            </property>
+            <property name="sizeIncrement">
+             <size>
+              <width>100</width>
+              <height>60</height>
+             </size>
+            </property>
+            <property name="baseSize">
+             <size>
+              <width>1021</width>
+              <height>205</height>
+             </size>
+            </property>
+            <property name="autoFillBackground">
+             <bool>false</bool>
+            </property>
+            <property name="frameShape">
+             <enum>QFrame::Box</enum>
+            </property>
+            <property name="frameShadow">
+             <enum>QFrame::Plain</enum>
+            </property>
+            <property name="text">
+             <string/>
+            </property>
+            <property name="scaledContents">
+             <bool>false</bool>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLabel" name="label2">
+            <property name="minimumSize">
+             <size>
+              <width>1021</width>
+              <height>205</height>
+             </size>
+            </property>
+            <property name="sizeIncrement">
+             <size>
+              <width>100</width>
+              <height>60</height>
+             </size>
+            </property>
+            <property name="baseSize">
+             <size>
+              <width>1021</width>
+              <height>205</height>
+             </size>
+            </property>
+            <property name="autoFillBackground">
+             <bool>false</bool>
+            </property>
+            <property name="frameShape">
+             <enum>QFrame::Box</enum>
+            </property>
+            <property name="frameShadow">
+             <enum>QFrame::Plain</enum>
+            </property>
+            <property name="text">
+             <string/>
+            </property>
+            <property name="scaledContents">
+             <bool>false</bool>
+            </property>
+            <property name="buddy">
+             <cstring></cstring>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+        <item>
+         <widget class="QTabWidget" name="tabWidget">
+          <property name="maximumSize">
+           <size>
+            <width>605</width>
+            <height>16777215</height>
+           </size>
+          </property>
+          <property name="currentIndex">
+           <number>1</number>
+          </property>
+          <widget class="QWidget" name="tab_1">
+           <attribute name="title">
+            <string>车辆信息</string>
+           </attribute>
+           <widget class="QTableWidget" name="tableWidget_micro">
+            <property name="geometry">
+             <rect>
+              <x>0</x>
+              <y>0</y>
+              <width>481</width>
+              <height>471</height>
+             </rect>
+            </property>
+            <property name="minimumSize">
+             <size>
+              <width>431</width>
+              <height>0</height>
+             </size>
+            </property>
+            <row>
+             <property name="text">
+              <string>1</string>
+             </property>
+            </row>
+            <row>
+             <property name="text">
+              <string>2</string>
+             </property>
+            </row>
+            <row>
+             <property name="text">
+              <string>3</string>
+             </property>
+            </row>
+            <row>
+             <property name="text">
+              <string>4</string>
+             </property>
+            </row>
+            <row>
+             <property name="text">
+              <string>5</string>
+             </property>
+            </row>
+            <row>
+             <property name="text">
+              <string>6</string>
+             </property>
+            </row>
+            <row>
+             <property name="text">
+              <string>7</string>
+             </property>
+            </row>
+            <row>
+             <property name="text">
+              <string>8</string>
+             </property>
+            </row>
+            <row>
+             <property name="text">
+              <string>9</string>
+             </property>
+            </row>
+            <row>
+             <property name="text">
+              <string>10</string>
+             </property>
+            </row>
+            <column>
+             <property name="text">
+              <string>车辆编号</string>
+             </property>
+            </column>
+            <column>
+             <property name="text">
+              <string>位置</string>
+             </property>
+            </column>
+            <column>
+             <property name="text">
+              <string>速度</string>
+             </property>
+            </column>
+           </widget>
+          </widget>
+          <widget class="QWidget" name="tab_2">
+           <attribute name="title">
+            <string>交通信息</string>
+           </attribute>
+           <widget class="QTableWidget" name="tableWidget_macro">
+            <property name="geometry">
+             <rect>
+              <x>0</x>
+              <y>0</y>
+              <width>481</width>
+              <height>471</height>
+             </rect>
+            </property>
+            <property name="minimumSize">
+             <size>
+              <width>431</width>
+              <height>0</height>
+             </size>
+            </property>
+            <row>
+             <property name="text">
+              <string>1</string>
+             </property>
+            </row>
+            <row>
+             <property name="text">
+              <string>2</string>
+             </property>
+            </row>
+            <row>
+             <property name="text">
+              <string>3</string>
+             </property>
+            </row>
+            <row>
+             <property name="text">
+              <string>4</string>
+             </property>
+            </row>
+            <row>
+             <property name="text">
+              <string>5</string>
+             </property>
+            </row>
+            <row>
+             <property name="text">
+              <string>6</string>
+             </property>
+            </row>
+            <row>
+             <property name="text">
+              <string>7</string>
+             </property>
+            </row>
+            <row>
+             <property name="text">
+              <string/>
+             </property>
+            </row>
+            <column>
+             <property name="text">
+              <string>项目</string>
+             </property>
+            </column>
+            <column>
+             <property name="text">
+              <string>数值</string>
+             </property>
+            </column>
+            <column>
+             <property name="text">
+              <string/>
+             </property>
+            </column>
+            <item row="0" column="0">
+             <property name="text">
+              <string>  车辆计数</string>
+             </property>
+             <property name="textAlignment">
+              <set>AlignLeading|AlignVCenter</set>
+             </property>
+            </item>
+            <item row="0" column="1">
+             <property name="text">
+              <string/>
+             </property>
+             <property name="textAlignment">
+              <set>AlignCenter</set>
+             </property>
+            </item>
+            <item row="1" column="0">
+             <property name="text">
+              <string>  交通量</string>
+             </property>
+             <property name="textAlignment">
+              <set>AlignLeading|AlignVCenter</set>
+             </property>
+            </item>
+            <item row="1" column="1">
+             <property name="text">
+              <string/>
+             </property>
+             <property name="textAlignment">
+              <set>AlignCenter</set>
+             </property>
+            </item>
+            <item row="2" column="0">
+             <property name="text">
+              <string>  空间平均速度</string>
+             </property>
+             <property name="textAlignment">
+              <set>AlignLeading|AlignVCenter</set>
+             </property>
+            </item>
+            <item row="2" column="1">
+             <property name="text">
+              <string/>
+             </property>
+             <property name="textAlignment">
+              <set>AlignCenter</set>
+             </property>
+            </item>
+            <item row="3" column="0">
+             <property name="text">
+              <string>  时间平均速度</string>
+             </property>
+             <property name="textAlignment">
+              <set>AlignLeading|AlignVCenter</set>
+             </property>
+            </item>
+            <item row="3" column="1">
+             <property name="text">
+              <string/>
+             </property>
+             <property name="textAlignment">
+              <set>AlignCenter</set>
+             </property>
+            </item>
+            <item row="4" column="0">
+             <property name="text">
+              <string>  车流密度</string>
+             </property>
+             <property name="textAlignment">
+              <set>AlignLeading|AlignVCenter</set>
+             </property>
+            </item>
+            <item row="4" column="1">
+             <property name="text">
+              <string/>
+             </property>
+             <property name="textAlignment">
+              <set>AlignCenter</set>
+             </property>
+            </item>
+            <item row="5" column="0">
+             <property name="text">
+              <string>  车头间距</string>
+             </property>
+             <property name="textAlignment">
+              <set>AlignLeading|AlignVCenter</set>
+             </property>
+            </item>
+            <item row="5" column="1">
+             <property name="text">
+              <string/>
+             </property>
+             <property name="textAlignment">
+              <set>AlignCenter</set>
+             </property>
+            </item>
+            <item row="6" column="0">
+             <property name="text">
+              <string>  车头时距</string>
+             </property>
+             <property name="textAlignment">
+              <set>AlignLeading|AlignVCenter</set>
+             </property>
+            </item>
+            <item row="6" column="1">
+             <property name="text">
+              <string/>
+             </property>
+             <property name="textAlignment">
+              <set>AlignCenter</set>
+             </property>
+            </item>
+           </widget>
+          </widget>
+         </widget>
+        </item>
+       </layout>
+      </item>
+      <item>
+       <layout class="QHBoxLayout" name="horizontalLayout">
+        <property name="spacing">
+         <number>9</number>
+        </property>
+        <property name="sizeConstraint">
+         <enum>QLayout::SetMaximumSize</enum>
+        </property>
+        <item>
+         <widget class="QPushButton" name="pushButton_play_pause">
+          <property name="minimumSize">
+           <size>
+            <width>25</width>
+            <height>25</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>25</width>
+            <height>25</height>
+           </size>
+          </property>
+          <property name="focusPolicy">
+           <enum>Qt::NoFocus</enum>
+          </property>
+          <property name="text">
+           <string/>
+          </property>
+          <property name="icon">
+           <iconset resource="ui_icon.qrc">
+            <normaloff>:/button/pause.png</normaloff>
+            <normalon>:/button/play.png</normalon>
+            <selectedoff>:/menu/pause.png</selectedoff>
+            <selectedon>:/menu/play.png</selectedon>:/button/pause.png</iconset>
+          </property>
+          <property name="shortcut">
+           <string>Space</string>
+          </property>
+          <property name="checkable">
+           <bool>true</bool>
+          </property>
+          <property name="checked">
+           <bool>true</bool>
+          </property>
+          <property name="default">
+           <bool>false</bool>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QSlider" name="horizontalSlider">
+          <property name="maximumSize">
+           <size>
+            <width>16777215</width>
+            <height>10</height>
+           </size>
+          </property>
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLabel" name="label_cur_num">
+          <property name="maximumSize">
+           <size>
+            <width>16777215</width>
+            <height>25</height>
+           </size>
+          </property>
+          <property name="text">
+           <string>frame num</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+     </layout>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QMenuBar" name="menubar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>1538</width>
+     <height>30</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="menu_file">
+    <property name="title">
+     <string>文件</string>
+    </property>
+    <addaction name="action_open"/>
+    <addaction name="action_save"/>
+    <addaction name="action_exit"/>
+    <addaction name="separator"/>
+    <addaction name="action_readConfig"/>
+    <addaction name="action_saveConfig"/>
+   </widget>
+   <widget class="QMenu" name="menu_edit">
+    <property name="title">
+     <string>编辑</string>
+    </property>
+    <addaction name="action_rotate"/>
+    <addaction name="action_viewCap"/>
+    <addaction name="action_selectROI"/>
+    <addaction name="action_calib"/>
+    <addaction name="action_lanes"/>
+    <addaction name="separator"/>
+    <addaction name="action_getbkg"/>
+   </widget>
+   <widget class="QMenu" name="menu_help">
+    <property name="title">
+     <string>帮助</string>
+    </property>
+    <addaction name="action_help"/>
+   </widget>
+   <widget class="QMenu" name="menu_filter">
+    <property name="title">
+     <string>调整</string>
+    </property>
+    <addaction name="action_morph"/>
+    <addaction name="action_ContourFilter"/>
+    <addaction name="separator"/>
+    <addaction name="action_trace"/>
+   </widget>
+   <widget class="QMenu" name="menu">
+    <property name="title">
+     <string>目标检测</string>
+    </property>
+    <addaction name="action_drawbox"/>
+    <addaction name="action_autoDetect"/>
+    <addaction name="action_ColorThreshholder"/>
+    <addaction name="action_frameDiff"/>
+    <addaction name="action_MOG2"/>
+    <addaction name="action_bkgDiff"/>
+   </widget>
+   <addaction name="menu_file"/>
+   <addaction name="menu_edit"/>
+   <addaction name="menu"/>
+   <addaction name="menu_filter"/>
+   <addaction name="menu_help"/>
+  </widget>
+  <widget class="QToolBar" name="toolBar">
+   <property name="mouseTracking">
+    <bool>true</bool>
+   </property>
+   <property name="windowTitle">
+    <string>toolBar</string>
+   </property>
+   <attribute name="toolBarArea">
+    <enum>TopToolBarArea</enum>
+   </attribute>
+   <attribute name="toolBarBreak">
+    <bool>false</bool>
+   </attribute>
+   <addaction name="action_open"/>
+   <addaction name="action_save"/>
+   <addaction name="action_exit"/>
+   <addaction name="separator"/>
+   <addaction name="action_rotate"/>
+   <addaction name="action_viewCap"/>
+   <addaction name="action_selectROI"/>
+   <addaction name="action_calib"/>
+   <addaction name="action_lanes"/>
+   <addaction name="action_drawbox"/>
+   <addaction name="separator"/>
+  </widget>
+  <widget class="QStatusBar" name="statusBar"/>
+  <action name="action_open">
+   <property name="icon">
+    <iconset resource="ui_icon.qrc">
+     <normaloff>:/action/open.png</normaloff>:/action/open.png</iconset>
+   </property>
+   <property name="text">
+    <string>打开视频</string>
+   </property>
+   <property name="statusTip">
+    <string>选择需要打开的视频文件</string>
+   </property>
+  </action>
+  <action name="action_exit">
+   <property name="icon">
+    <iconset resource="ui_icon.qrc">
+     <normaloff>:/action/exit.png</normaloff>:/action/exit.png</iconset>
+   </property>
+   <property name="text">
+    <string>退出</string>
+   </property>
+   <property name="statusTip">
+    <string>退出系统</string>
+   </property>
+   <property name="whatsThis">
+    <string>退出系统</string>
+   </property>
+  </action>
+  <action name="action_rotate">
+   <property name="checkable">
+    <bool>false</bool>
+   </property>
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="ui_icon.qrc">
+     <normaloff>:/action/rotate.png</normaloff>:/action/rotate.png</iconset>
+   </property>
+   <property name="text">
+    <string>调整画面角度</string>
+   </property>
+   <property name="statusTip">
+    <string>绘制一条基准线，自动将基准线调整为水平位置</string>
+   </property>
+  </action>
+  <action name="action_viewCap">
+   <property name="checkable">
+    <bool>false</bool>
+   </property>
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="ui_icon.qrc">
+     <normaloff>:/action/clip.png</normaloff>:/action/clip.png</iconset>
+   </property>
+   <property name="text">
+    <string>截选观察区</string>
+   </property>
+   <property name="statusTip">
+    <string>选取视频图像的显示区域</string>
+   </property>
+  </action>
+  <action name="action_drawbox">
+   <property name="checkable">
+    <bool>false</bool>
+   </property>
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="ui_icon.qrc">
+     <normaloff>:/action/select.png</normaloff>:/action/select.png</iconset>
+   </property>
+   <property name="text">
+    <string>手动框选目标</string>
+   </property>
+   <property name="statusTip">
+    <string>手动框选追踪目标</string>
+   </property>
+  </action>
+  <action name="action_save">
+   <property name="icon">
+    <iconset resource="ui_icon.qrc">
+     <normaloff>:/action/save.png</normaloff>:/action/save.png</iconset>
+   </property>
+   <property name="text">
+    <string>保存路径</string>
+   </property>
+   <property name="toolTip">
+    <string>选择保存路径</string>
+   </property>
+   <property name="statusTip">
+    <string>选择保存车辆信息的路径，若未选择，则默认不保存车辆数据</string>
+   </property>
+   <property name="whatsThis">
+    <string>选择保存车辆信息的路径，若未选择，则默认不保存车辆数据</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+S</string>
+   </property>
+  </action>
+  <action name="action_ColorThreshholder">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="checked">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>色彩分割</string>
+   </property>
+  </action>
+  <action name="action_ContourFilter">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="checked">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>轮廓筛选</string>
+   </property>
+   <property name="statusTip">
+    <string>设置参数对自动检测到的车辆目标进行过滤</string>
+   </property>
+  </action>
+  <action name="action_MorphologyEx">
+   <property name="text">
+    <string>形态学处理</string>
+   </property>
+  </action>
+  <action name="action_Blur">
+   <property name="text">
+    <string>模糊处理</string>
+   </property>
+  </action>
+  <action name="action_readConfig">
+   <property name="icon">
+    <iconset resource="ui_icon.qrc">
+     <normaloff>:/action/readconfig.png</normaloff>:/action/readconfig.png</iconset>
+   </property>
+   <property name="text">
+    <string>读取配置文件</string>
+   </property>
+   <property name="statusTip">
+    <string>读取电脑中的.ini配置文件</string>
+   </property>
+  </action>
+  <action name="action_saveConfig">
+   <property name="icon">
+    <iconset resource="ui_icon.qrc">
+     <normaloff>:/action/saveconfig.png</normaloff>:/action/saveconfig.png</iconset>
+   </property>
+   <property name="text">
+    <string>保存配置文件</string>
+   </property>
+   <property name="statusTip">
+    <string>选择一个路径用于将当前设置参数保存为.ini配置文件</string>
+   </property>
+  </action>
+  <action name="action_getbkg">
+   <property name="text">
+    <string>背景提取</string>
+   </property>
+  </action>
+  <action name="action_frameDiff">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>帧间差分</string>
+   </property>
+  </action>
+  <action name="action_MOG2">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>MOG2</string>
+   </property>
+  </action>
+  <action name="action_autoDetect">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="checked">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>自动检测模式</string>
+   </property>
+   <property name="statusTip">
+    <string>开启该功能，则系统将使用指定方式自动检测显示区域中的车辆目标</string>
+   </property>
+  </action>
+  <action name="action_calib">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="ui_icon.qrc">
+     <normaloff>:/action/ruler.png</normaloff>:/action/ruler.png</iconset>
+   </property>
+   <property name="text">
+    <string>比例标注</string>
+   </property>
+   <property name="statusTip">
+    <string>在图像中绘制直线，并为其标注实际长度</string>
+   </property>
+  </action>
+  <action name="action_trace">
+   <property name="text">
+    <string>路径绘制</string>
+   </property>
+  </action>
+  <action name="action_bkgDiff">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>背景差分</string>
+   </property>
+  </action>
+  <action name="action_help">
+   <property name="text">
+    <string>使用说明</string>
+   </property>
+  </action>
+  <action name="action_selectROI">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="ui_icon.qrc">
+     <normaloff>:/action/roi.png</normaloff>:/action/roi.png</iconset>
+   </property>
+   <property name="text">
+    <string>选取检测区</string>
+   </property>
+  </action>
+  <action name="action_lanes">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="ui_icon.qrc">
+     <normaloff>:/action/lane.png</normaloff>:/action/lane.png</iconset>
+   </property>
+   <property name="text">
+    <string>车道标注</string>
+   </property>
+  </action>
+  <action name="action_morph">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>形态学处理</string>
+   </property>
+  </action>
+ </widget>
+ <resources>
+  <include location="ui_icon.qrc"/>
+ </resources>
+ <connections>
+  <connection>
+   <sender>action_exit</sender>
+   <signal>triggered()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>close()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>517</x>
+     <y>315</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>horizontalSlider</sender>
+   <signal>valueChanged(int)</signal>
+   <receiver>label_cur_num</receiver>
+   <slot>setNum(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>969</x>
+     <y>618</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>1522</x>
+     <y>626</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+</ui>

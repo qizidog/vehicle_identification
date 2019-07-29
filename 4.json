@@ -1,0 +1,130 @@
+{
+    "view_para": {
+        "theta": 1.0,
+        "upRow": 560,
+        "downRow": 650,
+        "leftCol": 470,
+        "rightCol": 1030
+    },
+    "hsv_para": {
+        "h_min": 70,
+        "h_max": 4,
+        "s_min": 0,
+        "s_max": 30,
+        "v_min": 102,
+        "v_max": 199,
+        "reverse": true
+    },
+    "filter_para": {
+        "filter_flag": true,
+        "fill_hole_flag": true,
+        "erase_flag": true,
+        "box": [
+            [
+                "area",
+                200,
+                99999
+            ],
+            [
+                "Eccentricity",
+                0,
+                99999
+            ],
+            [
+                "Orientation",
+                -90,
+                99999
+            ],
+            [
+                "rect_w",
+                0,
+                99999
+            ],
+            [
+                "rect_h",
+                9,
+                99999
+            ],
+            [
+                "EquivDiameter",
+                0,
+                99999
+            ],
+            [
+                "Extent",
+                0,
+                99999
+            ],
+            [
+                "solidity",
+                0,
+                99999
+            ],
+            [
+                "None",
+                0,
+                99999
+            ],
+            [
+                "None",
+                0,
+                99999
+            ],
+            [
+                "None",
+                0,
+                99999
+            ],
+            [
+                "None",
+                0,
+                99999
+            ],
+            [
+                "None",
+                0,
+                99999
+            ],
+            [
+                "None",
+                0,
+                99999
+            ],
+            [
+                "None",
+                0,
+                99999
+            ]
+        ]
+    },
+    "roi_list": [
+        [
+            1,
+            0,
+            144,
+            90
+        ]
+    ],
+    "calib": 6.0,
+    "lane_list": [
+        [
+            559,
+            21,
+            1,
+            21
+        ],
+        [
+            3,
+            45,
+            558,
+            42
+        ],
+        [
+            1,
+            64,
+            559,
+            64
+        ]
+    ],
+    "lane_num": 4
+}
