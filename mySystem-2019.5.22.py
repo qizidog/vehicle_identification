@@ -24,10 +24,10 @@ from PyQt5.QtWidgets import QMainWindow, QApplication, QFileDialog, \
 from PyQt5.QtCore import QThread, pyqtSignal, Qt  # , pyqtSlot, QMutex
 from PyQt5.QtGui import QPixmap, QImage
 
-from playerBoxUI import Ui_MainWindow
-import ColorThresholder, ContourFilter, MorphAdjuster
-from ComboCheckBoxDialog import QComboCheckBoxDialog
-# from picbox import Mywin
+from widgets import ColorThresholderUI, ContourFilterUI, MorphAdjusterUI
+from widgets import ColorThresholder, ContourFilter, MorphAdjuster
+from widgets.ComboCheckBoxDialog import QComboCheckBoxDialog
+from widgets.PlayerBoxUI import Ui_MainWindow
 
 
 class MultiTracker:
@@ -578,7 +578,7 @@ class PlayerBox(QMainWindow, Ui_MainWindow):
                 self.vth.start()
 
     def auto_config(self):
-        config_path = str(os.path.split(video_path)[1].split('.')[0]) + '.json'  # 配置文件的名字
+        config_path = './.conf/' + str(os.path.split(video_path)[1].split('.')[0]) + '.json'  # 配置文件的名字
         if os.path.exists(config_path):  # 如果存在和视频名字相同的配置文件
             with open(config_path, 'r') as f:  # 先把json文件中的数据读出来
                 try:
@@ -595,7 +595,7 @@ class PlayerBox(QMainWindow, Ui_MainWindow):
                     self.dth.lane_num = read_data['lane_num']
 
     def open_json(self):
-        json_path, filetype = QFileDialog.getOpenFileName(self, "选择数据保存路径", "./car_datas", "Json (*.json)")
+        json_path, filetype = QFileDialog.getOpenFileName(self, "选择数据保存路径", "./data/car_datas", "Json (*.json)")
         if json_path == "":
             return
         else:
@@ -937,7 +937,7 @@ class PlayerBox(QMainWindow, Ui_MainWindow):
                     plot_trace(items, load_data)
 
     def read_config(self):
-        config_path, config_type = QFileDialog.getOpenFileName(self, "选择配置文件", ".", "*.json;;All Files(*)")
+        config_path, config_type = QFileDialog.getOpenFileName(self, "选择配置文件", './.conf/', "*.json;;All Files(*)")
         if config_path == '':
             return
         else:
@@ -958,7 +958,7 @@ class PlayerBox(QMainWindow, Ui_MainWindow):
 
     def save_config(self):
         config_path = str(os.path.split(video_path)[1].split('.')[0]) + '.json'
-        config_path, config_type = QFileDialog.getSaveFileName(self, "保存配置文件", config_path, "*.json")
+        config_path, config_type = QFileDialog.getSaveFileName(self, "保存配置文件", './.conf/'+config_path, "*.json")
         if config_path == "":
             return
         else:
