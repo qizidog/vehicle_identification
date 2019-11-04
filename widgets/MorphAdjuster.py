@@ -9,7 +9,10 @@ from PyQt5.QtWidgets import QApplication, QDialog, QLabel
 from PyQt5 import QtCore
 from PyQt5.QtGui import QPixmap, QImage
 from functools import partial
-import MorphAdjusterUI
+if __name__ == '__main__':
+    import MorphAdjusterUI
+else:
+    import widgets.MorphAdjusterUI as MorphAdjusterUI
 
 
 class MorphAdjuster(QtWidgets.QDialog, MorphAdjusterUI.Ui_Dialog):
@@ -81,7 +84,7 @@ class MorphAdjuster(QtWidgets.QDialog, MorphAdjusterUI.Ui_Dialog):
 if __name__ == '__main__':
     app = QApplication(sys.argv)
     dialog = MorphAdjuster()
-    pic = cv2.imread('car_pic1.jpg')
+    pic = cv2.imread('./.img/car_pic1.jpg')
     # pic = cv2.imread(r'C:\Users\qizidog\Desktop\2.png')
     pic = cv2.cvtColor(pic, cv2.COLOR_BGR2GRAY)
     pic = cv2.threshold(pic, 0, 255, cv2.THRESH_BINARY+cv2.THRESH_OTSU)[1]

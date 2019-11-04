@@ -7,7 +7,10 @@ import numpy as np
 from PyQt5 import QtWidgets
 from PyQt5.QtWidgets import QApplication, QTableWidgetItem
 from PyQt5.QtGui import QPixmap, QImage
-import ContourFilterUI
+if __name__ == '__main__':
+    import ContourFilterUI
+else:
+    import widgets.ContourFilterUI as ContourFilterUI
 
 
 class ContourFilter(QtWidgets.QDialog, ContourFilterUI.Ui_Dialog):

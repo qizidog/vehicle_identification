@@ -419,10 +419,10 @@
           </property>
           <property name="icon">
            <iconset resource="ui_icon.qrc">
-            <normaloff>:/button/pause.png</normaloff>
-            <normalon>:/button/play.png</normalon>
-            <selectedoff>:/menu/pause.png</selectedoff>
-            <selectedon>:/menu/play.png</selectedon>:/button/pause.png</iconset>
+            <normaloff>:/button/.img/pause.png</normaloff>
+            <normalon>:/button/.img/play.png</normalon>
+            <selectedoff>:/button/.img/pause.png</selectedoff>
+            <selectedon>:/button/.img/play.png</selectedon>:/button/.img/pause.png</iconset>
           </property>
           <property name="shortcut">
            <string>Space</string>
@@ -563,7 +563,7 @@
   <action name="action_open">
    <property name="icon">
     <iconset resource="ui_icon.qrc">
-     <normaloff>:/action/open.png</normaloff>:/action/open.png</iconset>
+     <normaloff>:/action/.img/open.png</normaloff>:/action/.img/open.png</iconset>
    </property>
    <property name="text">
     <string>打开视频</string>
@@ -575,7 +575,7 @@
   <action name="action_exit">
    <property name="icon">
     <iconset resource="ui_icon.qrc">
-     <normaloff>:/action/exit.png</normaloff>:/action/exit.png</iconset>
+     <normaloff>:/action/.img/exit.png</normaloff>:/action/.img/exit.png</iconset>
    </property>
    <property name="text">
     <string>退出</string>
@@ -596,7 +596,7 @@
    </property>
    <property name="icon">
     <iconset resource="ui_icon.qrc">
-     <normaloff>:/action/rotate.png</normaloff>:/action/rotate.png</iconset>
+     <normaloff>:/action/.img/rotate.png</normaloff>:/action/.img/rotate.png</iconset>
    </property>
    <property name="text">
     <string>调整画面角度</string>
@@ -614,7 +614,7 @@
    </property>
    <property name="icon">
     <iconset resource="ui_icon.qrc">
-     <normaloff>:/action/clip.png</normaloff>:/action/clip.png</iconset>
+     <normaloff>:/action/.img/clip.png</normaloff>:/action/.img/clip.png</iconset>
    </property>
    <property name="text">
     <string>截选观察区</string>
@@ -632,7 +632,7 @@
    </property>
    <property name="icon">
     <iconset resource="ui_icon.qrc">
-     <normaloff>:/action/select.png</normaloff>:/action/select.png</iconset>
+     <normaloff>:/action/.img/select.png</normaloff>:/action/.img/select.png</iconset>
    </property>
    <property name="text">
     <string>手动框选目标</string>
@@ -644,7 +644,7 @@
   <action name="action_save">
    <property name="icon">
     <iconset resource="ui_icon.qrc">
-     <normaloff>:/action/save.png</normaloff>:/action/save.png</iconset>
+     <normaloff>:/action/.img/save.png</normaloff>:/action/.img/save.png</iconset>
    </property>
    <property name="text">
     <string>保存路径</string>
@@ -700,7 +700,7 @@
   <action name="action_readConfig">
    <property name="icon">
     <iconset resource="ui_icon.qrc">
-     <normaloff>:/action/readconfig.png</normaloff>:/action/readconfig.png</iconset>
+     <normaloff>:/action/.img/readconfig.png</normaloff>:/action/.img/readconfig.png</iconset>
    </property>
    <property name="text">
     <string>读取配置文件</string>
@@ -712,7 +712,7 @@
   <action name="action_saveConfig">
    <property name="icon">
     <iconset resource="ui_icon.qrc">
-     <normaloff>:/action/saveconfig.png</normaloff>:/action/saveconfig.png</iconset>
+     <normaloff>:/action/.img/saveconfig.png</normaloff>:/action/.img/saveconfig.png</iconset>
    </property>
    <property name="text">
     <string>保存配置文件</string>
@@ -762,7 +762,7 @@
    </property>
    <property name="icon">
     <iconset resource="ui_icon.qrc">
-     <normaloff>:/action/ruler.png</normaloff>:/action/ruler.png</iconset>
+     <normaloff>:/action/.img/ruler.png</normaloff>:/action/.img/ruler.png</iconset>
    </property>
    <property name="text">
     <string>比例标注</string>
@@ -795,7 +795,7 @@
    </property>
    <property name="icon">
     <iconset resource="ui_icon.qrc">
-     <normaloff>:/action/roi.png</normaloff>:/action/roi.png</iconset>
+     <normaloff>:/action/.img/roi.png</normaloff>:/action/.img/roi.png</iconset>
    </property>
    <property name="text">
     <string>选取检测区</string>
@@ -807,7 +807,7 @@
    </property>
    <property name="icon">
     <iconset resource="ui_icon.qrc">
-     <normaloff>:/action/lane.png</normaloff>:/action/lane.png</iconset>
+     <normaloff>:/action/.img/lane.png</normaloff>:/action/.img/lane.png</iconset>
    </property>
    <property name="text">
     <string>车道标注</string>

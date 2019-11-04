@@ -8,7 +8,10 @@ from PyQt5 import QtWidgets
 from PyQt5.QtWidgets import QApplication, QDialog, QLabel
 from PyQt5 import QtCore
 from PyQt5.QtGui import QPixmap, QImage
-import ColorThresholderUI
+if __name__ == '__main__':
+    import ColorThresholderUI
+else:
+    import widgets.ColorThresholderUI as ColorThresholderUI
 
 
 class ColorThresholder(QtWidgets.QDialog, ColorThresholderUI.Ui_Dialog):

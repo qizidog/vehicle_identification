@@ -1,9 +1,8 @@
 # -- coding:utf-8 --
 # author: ZQF time:2018/12/15
 '''
-1.使用opencv的多目标追踪multitracker函数
-2.可将追踪车辆的位置、速度信息以及视频路径、帧率等存入json文件
-3.实现了计划中所有交通数据的计算和显示
+1.在5.9的基础上改用自定义的多目标追踪函数，实现可消除追踪失败目标的功能
+2.增加绘制车辆轨迹散点图的功能，可使用自定义的下拉列表复选框控件
 '''
 
 import sys
@@ -11,28 +10,62 @@ import os
 # import time
 import cv2
 import numpy as np
+import matplotlib.pyplot as plt
+import mpl_toolkits.axisartist as axisartist
 import configparser
 import json
 
 # from PyQt5 import QtWidgets, QtCore, QtGui
-from PyQt5.QtWidgets import QMainWindow, QApplication, QFileDialog, QMessageBox, \
-     QTableWidgetItem, QInputDialog, QPushButton
-# QDesktopWidget, QGraphicsScene, QDialog
+from PyQt5.QtWidgets import QMainWindow, QApplication, QFileDialog, \
+            QMessageBox, QTableWidgetItem, QInputDialog, QPushButton
+# QDesktopWidget, QGraphicsScene, QDialog, QComboBox, QLineEdit, QListWidget, QCheckBox, QListWidgetItem
 from PyQt5.QtCore import QThread, pyqtSignal, Qt  # , pyqtSlot, QMutex
 from PyQt5.QtGui import QPixmap, QImage
 
 from playerBoxUI import Ui_MainWindow
 import ColorThresholder, ContourFilter
-from picbox import Mywin
+from ComboCheckBoxDialog import QComboCheckBoxDialog
+# from picbox import Mywin
+
+
+class MultiTracker:
+    def __init__(self):
+        self.tracker_dict = {}
+        self.tracker_num = 0
+        self.bboxes = []
+
+    def add(self, tracker, frame, bbox):
+        ok = tracker.init(frame, tuple(bbox))
+        if ok:
+            self.tracker_dict[self.tracker_num] = tracker
+            self.tracker_num += 1
+
+    def update(self, frame):
+        self.bboxes = []
+        indexs2delet = []
+        for index, tracker in self.tracker_dict.items():
+            ok, bbox = tracker.update(frame)
+            if ok:  # if track successfully
+                self.bboxes.append(bbox)
+            else:  # else if track failed
+                indexs2delet.append(index)
+        for index in indexs2delet:
+            del self.tracker_dict[index]
+        return np.array(list(self.tracker_dict.keys())), np.array(self.bboxes)
+
+    def getObjects(self):
+        return self.bboxes
+
+    def getTrackers(self):
+        return self.tracker_dict
 
 
 class ColorThreshFilter:
     def __init__(self):
         # self.cars = {}
         self.mode = 0
-        self.bboxes = []  # 目标追踪时存放信息的列表
-        self.car_list = []  # 用来存放所有追踪到的车辆的编号
-        self.multiTracker = cv2.MultiTracker_create()
+        # self.multiTracker = cv2.MultiTracker_create()
+        self.multiTracker = MultiTracker()
         self.h_min, self.h_max = 0, 180  # hsv过滤的默认值
         self.s_min, self.s_max = 0, 255
         self.v_min, self.v_max = 0, 255
@@ -48,6 +81,7 @@ class ColorThreshFilter:
                     ['None', 0, 99999], ['None', 0, 99999], ['None', 0, 99999],
                     ['None', 0, 99999], ['None', 0, 99999], ['None', 0, 99999]]  # 提供最多同时15个过滤条件
         self.frames, self.fgbg, self.bkg = [], None, None  # 预定义背景差分法中使用的东西
+        self.car_num = 0
 
     def get_mask(self, bgr):
         I = cv2.cvtColor(bgr, cv2.COLOR_BGR2HSV)
@@ -211,9 +245,10 @@ class ColorThreshFilter:
         return frame_color
 
     def add_into_tracker(self, mask, frame_color, cur_num):
+        print('cur:', cur_num)
         if cur_num == 1:  # 这个帧数非常关键，如果没有识别，去查thread里面的初始帧是0还是1
             boxes = np.array([])
-            car_list = np.array(self.car_list.copy())
+            car_list = np.array([])
             # num, labels, stats, centroids = cv2.connectedComponentsWithStats(mask)
             # for i in range(num):
             #     if i > 0:
@@ -221,22 +256,15 @@ class ColorThreshFilter:
             #         self.multiTracker.add(cv2.TrackerKCF_create(), frame_color, tuple(bbox))  # cv2.TrackerMOSSE_create()
         else:
             # 刷新刷新刷新
-            ret, boxes = self.multiTracker.update(frame_color)  # 跟踪对象消失后boxes中的数据不会减少
-            print('boxes', self.multiTracker.getObjects())
-            # print('ret', ret)
-            if isinstance(boxes, np.ndarray):
-                scope_mask = (0 < boxes[:, 0]) & ((boxes[:, 0]+boxes[:, 2]) < frame_color.shape[1])
-                boxes = boxes[scope_mask, :]  # 过滤掉从左右两边界离开的目标
-                # print(scope_mask, boxes, self.car_list)
-                car_list = np.array(self.car_list.copy())[scope_mask]
-                for i, newbox in enumerate(boxes):
-                    p1 = (int(newbox[0]), int(newbox[1]))  # 框的左上角x, y坐标
-                    p2 = (int(newbox[0] + newbox[2]), int(newbox[1] + newbox[3]))  # 框的右下角x, y坐标
-                    cv2.rectangle(frame_color, p1, p2, (160, 80, 40), 2, 1)
-                    cv2.putText(frame_color, str(car_list[i]), p1, cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 200), 2)
-            else:
-                boxes = np.array([])  # 做一个空的np数组以避免报错
-                car_list = np.array(self.car_list.copy())
+            car_list, boxes = self.multiTracker.update(frame_color)
+            # print('boxes', type(boxes), boxes)
+            # print('trackers', self.multiTracker.getTrackers())
+            # print('car_list', type(car_list), car_list)
+            for i, newbox in enumerate(boxes):
+                p1 = (int(newbox[0]), int(newbox[1]))  # 框的左上角x, y坐标
+                p2 = (int(newbox[0] + newbox[2]), int(newbox[1] + newbox[3]))  # 框的右下角x, y坐标
+                cv2.rectangle(frame_color, p1, p2, (160, 80, 40), 2, 1)
+                cv2.putText(frame_color, str(car_list[i]), p1, cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 200), 2)
             # 自动检测flag，if true
             if self.auto_detect_flag:
                 entrance = mask[:, 0:280].copy()
@@ -254,8 +282,7 @@ class ColorThreshFilter:
                         if not found:
                             bbox = stats[i][:4]
                             self.multiTracker.add(cv2.TrackerKCF_create(), frame_color, tuple(bbox))
-                            self.car_list.append(len(self.car_list))
-                            # self.bboxes.append(bbox)
+                            self.car_num = self.multiTracker.tracker_num
         return frame_color, boxes, car_list
 
     def isSameCar(self, box1, box2):  # 根据两矩形框的相交面积判断是否为同一辆车
@@ -384,7 +411,6 @@ class VideoThread(QThread):
                     # print('type boxes:', type(boxes))
                     self.send_data.emit(boxes, car_list, cur_num)  # 已经在add_into_tracker里面确保boxes是np.array类型
                     self.send_pic.emit(frame_color, mask, cur_num)  # 将当前帧的画面和帧数传回
-                    # time.sleep(0.1)  # 控制视频播放的速度,计算量小时似乎不需要
                 else:
                     break
         print('cap has been released')
@@ -431,15 +457,23 @@ class DataThread(QThread):
             print('connect successfully!')
             if len(pos) == len(self.last_pos):
                 speed = np.round(self.calc_distance(pos-self.last_pos) / self.calib * 3, 2)  # 1/3s内产生的位移，所以需要乘以3
-            elif len(pos) > len(self.last_pos):  # 如果车辆数增加了  # todo y坐标导致新增车辆速度偏大
+            elif len(pos) > len(self.last_pos):  # 如果车辆数增加了
                 mov = pos.copy()
                 for i, p in enumerate(self.last_pos):
                     mov[i] = pos[i] - p  # 第i辆车的位移
                 speed = np.round(self.calc_distance(mov) / self.calib * self.freq, 2)
             else:  # 如果车辆数减少了
                 mov = pos.copy()
+                # print('match', match)
                 for i, (key, value) in enumerate(match.items()):
-                    mov[i] = value - self.match[key]  # 第i辆车的位移
+                    # print(i, key, value)
+                    # print(self.match[key])
+                    try:
+                        mov[i] = value - self.match[key]  # 第i辆车的位移
+                    except KeyError as e:
+                        print('error caused by threading: ', e)
+                    # print('mov', mov[i])
+                # print('mov', mov)
                 speed = np.round(self.calc_distance(mov) / self.calib * self.freq, 2)
             self.last_pos = pos  # 历史位置更新
             self.last_speed = speed  # 历史速度更新
@@ -537,11 +571,6 @@ class PlayerBox(QMainWindow, Ui_MainWindow):
         self.vth.send_data.connect(self.dth.micro_process)
         self.dth.send_micro_data.connect(self.show_micro_data)
         self.dth.send_macro_data.connect(self.show_macro_data)
-        # self.refresh_btn.clicked.connect(self.test)
-
-    def test(self):
-        a = self.vth.CF.multiTracker.trackerList()
-        print('a', a, type(a))
 
     def open_video(self):
         global video_path
@@ -585,20 +614,20 @@ class PlayerBox(QMainWindow, Ui_MainWindow):
             self.vth.CF.reverse = cf.getboolean('hsv', 'reverse')
 
     def save_json(self):
-        json_path, filetype = QFileDialog.getOpenFileName(self, "选择数据保存路径", "./car_datas", "Json (*.json);;All Files (*)")
+        json_path, filetype = QFileDialog.getOpenFileName(self, "选择数据保存路径", "./car_datas", "Json (*.json)")
         if json_path == "":
             return
         else:
             self.dth.json_path = json_path
             self.refresh_btn.clicked.connect(self.dth.macro_process)
+            self.action_trace.triggered.connect(self.show_trace)
 
     def show_frame(self, frame_bgr, mask, cur_num):  # 将传来的cv2格式图片转换为Qpixmap的并显示在label中
-        # 显示这三张图片
-        # self.cv2_pic_to_pixmap(self.mask, 'gray', self.label3)
+        # 显示图片
         self.cv2_pic_to_pixmap(frame_bgr, 'bgr', self.label_frameBox)  # 显示追踪效果
         self.cv2_pic_to_pixmap(mask, 'gray', self.label2)  # 显示检测效果
         self.horizontalSlider.setValue(cur_num)  # 让slider滑块随视频播放而移动
-        print('cur:', cur_num)  # 显示当前帧数
+        # print('cur:', cur_num)  # 显示当前帧数
 
     def change_frame(self, frame_num):
         print('jump to frame:', frame_num)
@@ -617,7 +646,7 @@ class PlayerBox(QMainWindow, Ui_MainWindow):
             self.tableWidget_micro.setItem(i, 1, QTableWidgetItem(str(each_pos)))
         for j, each_speed in enumerate(speed):
             self.tableWidget_micro.setItem(j, 2, QTableWidgetItem(str(each_speed)))
-        item = QTableWidgetItem(str(len(self.vth.CF.car_list))+' 辆')
+        item = QTableWidgetItem(str(self.vth.CF.car_num)+' 辆')
         item.setTextAlignment(Qt.AlignHCenter | Qt.AlignVCenter)  # 设置水平和垂直方向居中对齐
         self.tableWidget_macro.setItem(0, 1, item)
 
@@ -637,8 +666,8 @@ class PlayerBox(QMainWindow, Ui_MainWindow):
         modes = [self.action_ColorThreshholder, self.action_frameDiff, self.action_MOG2]
         self.set_button_false()
         self.vth.CF.frames = []  # 把帧差法用来存背景的列表清空
-        self.vth.CF.multiTracker = cv2.MultiTracker_create()  # 追踪器重新创建
-        self.vth.CF.car_list = []  # 把存放所有追踪到的车辆编号的列表清空
+        # self.vth.CF.multiTracker = cv2.MultiTracker_create()  # 追踪器重新创建
+        self.vth.CF.multiTracker = MultiTracker()  # 追踪器重新创建
         self.vth.cap.set(cv2.CAP_PROP_POS_FRAMES, 0)  # 视频重头开始播放(小心thread里面改变cap定义的位置可能导致这里报错)
         for i, each_mode in enumerate(modes):
             if each_mode == self.sender():
@@ -692,8 +721,9 @@ class PlayerBox(QMainWindow, Ui_MainWindow):
                 each[2] = cntfilter.box[i][2].value()
 
     def open_getbkg(self):
-        picbox = Mywin()
-        picbox.show()
+        pass
+        # picbox = Mywin()
+        # picbox.show()
 
     def set_time(self, time, frame_num):
         print('total_time:', time, 'total_frame:', frame_num)
@@ -786,7 +816,7 @@ class PlayerBox(QMainWindow, Ui_MainWindow):
                 d_pixel = ((self.y2 - self.y1)**2 + (self.x2 - self.x1)**2)**0.5
                 d_real, ok = QInputDialog.getDouble(self, '像素标定', '所绘线段的实际长度(m)：', min=0.01, decimals=2)
                 if ok:
-                    self.dth.calib = d_pixel/d_real
+                    self.dth.calib = round(d_pixel/d_real, 2)
                     print('像素距离：', d_pixel, '实际距离', d_real, '像素/实际', self.dth.calib)
                 cv2.destroyWindow('calibration')
                 break
@@ -809,7 +839,47 @@ class PlayerBox(QMainWindow, Ui_MainWindow):
         cv2.destroyWindow('MultiTracker')
         for bbox in bboxes:
             self.vth.CF.multiTracker.add(cv2.TrackerKCF_create(), frame, tuple(bbox))
-            self.vth.CF.car_list.append(len(self.vth.CF.car_list))
+
+    def show_trace(self):
+        def plot_trace(items, load_data):
+            fig = plt.figure('traces', [14, 3])  # 设置画布大小
+            # plt.title('traces', loc='center')
+            ax = plt.gca()  # 获得当前坐标轴
+            ax.set_aspect('equal')  # 设置x, y轴刻度比例相等
+            # ax.spines['right'].set_color('none')  # 右侧坐标轴不显示
+            # ax.spines['bottom'].set_color('none')  # 底部坐标轴不显示
+            ax.xaxis.set_ticks_position('top')  # x轴放在顶部
+            ax.yaxis.set_ticks_position('left')  # y轴放在左侧
+            max_x, max_y = 0, 0
+            # print(items)
+            for item in items:
+                pos_x = np.array(load_data['data'][item])[:, 0].astype(int)  # 横坐标
+                pos_y = np.array(load_data['data'][item])[:, 1].astype(int)  # 纵坐标
+                # print(item, pos_x)
+                # print(item, pos_y)
+                max_x = max(max(pos_x), max_x)
+                max_y = max(max(pos_y), max_y)
+                plt.scatter(pos_x, pos_y)  # 绘制散点图
+            plt.xlim((0, 1.1 * max_x))  # 设置x轴范围
+            plt.ylim((0, 1.2 * max_y))  # 设置y轴范围
+            plt.xticks(np.linspace(0, 1.1 * max_x, 10))  # 设置x轴刻度
+            plt.yticks(np.linspace(0, 1.2 * max_y, 5))  # 设置y轴刻度
+            ax.invert_yaxis()  # y坐标轴反向，必须放在后面设置，否则无效
+            plt.legend(items, loc='upper right')
+            plt.show()
+        with open(self.dth.json_path, 'r') as f:  # 先把json文件中的数据读出来
+            try:
+                load_data = json.load(f)
+            except json.decoder.JSONDecodeError:  # 如果是个新的空文件
+                QMessageBox.information(self, '提示', '该json文件为空', QMessageBox.Ok)
+            else:
+                traces = list(load_data['data'].keys())
+                # 实例化自己写的下拉复选框对话窗口
+                dialog = QComboCheckBoxDialog('轨迹选择', '请选择需要绘制轨迹的车辆标号：', traces, 5)
+                ret = dialog.exec_()
+                if ret:
+                    items = dialog.comboBox.ret.split(',')
+                    plot_trace(items, load_data)
 
     def read_config(self):
         config_path, config_type = QFileDialog.getOpenFileName(self, "选择配置文件", ".", "*.ini *.conf;;All Files(*)")
